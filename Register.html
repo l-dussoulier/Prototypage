@@ -40,12 +40,8 @@
         if ($('#password').val() == $('#password2').val()){
             params = "user="+$('#login').val()+"&password="+$('#password').val();
             $.ajax({
-                url : './Backend/fonctions.php',
+                url : './Backend/register.php?'+params,
                 type : 'GET',
-                data:{
-                    fonction:'register()',
-                    params: param,
-                },
                 success : function (result) {
                     if (result != "0"){
                         console.log("bien joué");

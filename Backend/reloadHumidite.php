@@ -1,6 +1,6 @@
 <?php
 
-
+//BDD
 $servername = "localhost";
 $username = "root";
 $password = "root";

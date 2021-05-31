@@ -2,10 +2,13 @@
 
 require __DIR__ . '/../vendor/autoload.php';
 
-
+//BDD
 $servername = "localhost";
 $username = "root";
 $password = "root";
+//BROKER
+$server   = 'broker.hivemq.com';
+$port     = 1883;
 
 try {
     $bdd = new PDO("mysql:host=$servername;dbname=prototype", $username, $password);
@@ -15,15 +18,12 @@ try {
     $result = $bdd->prepare("INSERT INTO Capteur (Id,typeC,Valeur,dateCreation) VALUES (null,:typeC,:valeur,:dateC)");
 
 
-    $server   = 'broker.hivemq.com';
-    $port     = 1883;
-    $mqtt = new \PhpMqtt\Client\MqttClient($server, $port);
+    $mqtt = new MqttClient($server, $port);
     $mqtt->connect();
-    $mqtt->subscribe('php-mqtt/client/temperature', function ($topic, $message) use ($result) {
-        //echo sprintf("Received message on topic [%s]: %s\n", $topic, $message);
+    $mqtt->subscribe('php-mqtt/client/Humidite', function ($topic, $message) use ($result) {
         echo $topic,' ',$message;
         $result->execute([
-            "typeC" => 'Temperature',
+            "typeC" => 'Humidite',
             "valeur" => $message,
             "dateC" => date('Y-m-d H:i:s')
         ]);

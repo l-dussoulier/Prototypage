@@ -48,50 +48,6 @@
                     <span>Dashboard</span></a>
             </li>
 
-            <!-- Divider -->
-            <hr class="sidebar-divider">
-
-            <!-- Heading -->
-            <div class="sidebar-heading">
-                Interface
-            </div>
-
-            <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
-                    aria-expanded="true" aria-controls="collapseTwo">
-                    <i class="fas fa-fw fa-cog"></i>
-                    <span>Components</span>
-                </a>
-                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Custom Components:</h6>
-                        <a class="collapse-item" href="buttons.html">Buttons</a>
-                        <a class="collapse-item" href="cards.html">Cards</a>
-                    </div>
-                </div>
-            </li>
-
-            <!-- Nav Item - Utilities Collapse Menu -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
-                    aria-expanded="true" aria-controls="collapseUtilities">
-                    <i class="fas fa-fw fa-wrench"></i>
-                    <span>Utilities</span>
-                </a>
-                <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
-                    data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Custom Utilities:</h6>
-                        <a class="collapse-item" href="utilities-color.html">Colors</a>
-                        <a class="collapse-item" href="utilities-border.html">Borders</a>
-                        <a class="collapse-item" href="utilities-animation.html">Animations</a>
-                        <a class="collapse-item" href="utilities-other.html">Other</a>
-                    </div>
-                </div>
-            </li>
-
-            <!-- Divider -->
             <hr class="sidebar-divider">
 
             <!-- Heading -->
@@ -176,9 +132,6 @@
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
                         <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
                     </div>
-                    <button type="button" id="testMQTT">NIQUE ZEBI</button>
-                    <button type="button" id="returnData">Reload data</button>
-
                     <!-- Content Row -->
                     <div class="row">
 
@@ -212,9 +165,8 @@
                                         </div>
                                         <div class="col">
                                             <div class="progress progress-sm mr-2">
-                                                <div class="progress-bar bg-success" role="progressbar"
+                                                <div id="progressBarCustom" class="progress-bar bg-success" role="progressbar"
                                                      style="width: 45%" aria-valuenow="50" aria-valuemin="0"
-
                                                      aria-valuemax="100"></div>
                                             </div>
                                             <!-- Changer le style pour changement de la barre-->
@@ -258,7 +210,7 @@
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
                                                 Requetes total</div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800"><span>354</span></div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800"><span id="totalRequetes">354</span></div>
                                         </div>
                                         <div class="col-auto">
                                             <i class="fas fa-cog fa-2x text-gray-300"></i>
@@ -279,7 +231,7 @@
                                 <!-- Card Header - Dropdown -->
                                 <div
                                     class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <h6 class="m-0 font-weight-bold text-primary">Température de la semaine</h6>
+                                    <h6 class="m-0 font-weight-bold text-primary">Température de la semaine   (en cours ⚠️)</h6>
                                     <div class="dropdown no-arrow">
 
                                     </div>
@@ -299,7 +251,7 @@
                                 <!-- Card Header - Dropdown -->
                                 <div
                                     class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <h6 class="m-0 font-weight-bold text-primary">Répartition des requêtes</h6>
+                                    <h6 class="m-0 font-weight-bold text-primary">Répartition des requêtes   (en cours ⚠️)</h6>
                                     <div class="dropdown no-arrow">
 
                                     </div>
@@ -315,9 +267,6 @@
                                         </span>
                                         <span class="mr-2">
                                             <i class="fas fa-circle text-success"></i> Humidité
-                                        </span>
-                                        <span class="mr-2">
-                                            <i class="fas fa-circle text-info"></i> Horloge
                                         </span>
                                     </div>
                                 </div>
@@ -476,7 +425,7 @@
                     callbacks: {
                         label: function(tooltipItem, chart) {
                             var datasetLabel = chart.datasets[tooltipItem.datasetIndex].label || '';
-                            return datasetLabel + ': $' + number_format(tooltipItem.yLabel);
+                            return datasetLabel + ' ' + number_format(tooltipItem.yLabel)+" °C";
                         }
                     }
                 }
@@ -489,9 +438,9 @@
         var myPieChart = new Chart(ctx, {
             type: 'doughnut',
             data: {
-                labels: ["Température", "Humidité", "Horloge"],
+                labels: ["Température", "Humidité"],
                 datasets: [{
-                    data: [55, 30, 15],
+                    data: [55, 30],
                     backgroundColor: ['#4e73df', '#1cc88a', '#36b9cc'],
                     hoverBackgroundColor: ['#2e59d9', '#17a673', '#2c9faf'],
                     hoverBorderColor: "rgba(234, 236, 244, 1)",
@@ -520,24 +469,21 @@
 
 ///////// PARTIE AJAX //////////
 
-
-//        $.ajax({
-        //             url : '../Backend/Publish.php',
-        //     type : 'GET',
-            //     success : function (result) {
-            //         console.log(result);
-        //     },
-        //     error : function (e) {
-        //         console.log ('error '+ e.error);
-        //     }
-
-        //   });
+        var ajd = new Date();
+        var options = { weekday: 'long', month: 'long', day: 'numeric' };
+        $('#IdDate').text(ajd.toLocaleDateString('fr-FR', options));
 
         SubscribeTemperature();
+        SubscribeHumidite();
+        reloadHumidite();
+        reloadTemperature();
+        reloadTotalRequetes();
 
         var intervalId = window.setInterval(function(){
             console.log('coucou ma boucle');
             reloadTemperature();
+            reloadHumidite();
+            reloadTotalRequetes();
         }, 10000);
 
 
@@ -550,11 +496,12 @@
           });
 
 
+    // Subscribe
 
     function SubscribeTemperature() {
         console.log('sub');
         $.ajax({
-            url : '../Backend/Subscribe.php',
+            url : '../Backend/SubscribeTemperature.php',
             type : 'GET',
             success : function (result) {
                 console.log(result);
@@ -565,6 +512,21 @@
         });
     }
 
+    function SubscribeHumidite() {
+        console.log('sub humidite');
+        $.ajax({
+            url : '../Backend/SubscribeHumidite.php',
+            type : 'GET',
+            success : function (result) {
+                console.log(result);
+            },
+            error : function (e) {
+                console.log ('error '+ e.error);
+            }
+        });
+    }
+
+// reload
 
 
     function reloadTemperature() {
@@ -578,6 +540,36 @@
           error : function (e) {
               console.log ('error '+ e.error);
           }
+        });
+    }
+    function reloadHumidite() {
+        $.ajax({
+            url : '../Backend/reloadHumidite.php',
+            type : 'GET',
+            success : function (result) {
+                console.log(result);
+                $('#IdHumidite').text(result);
+                console.log(result+"%");
+                var custom = 'width:'+result+'%';
+                $('#progressBarCustom').attr("style",custom);
+            },
+            error : function (e) {
+                console.log ('error '+ e.error);
+            }
+        });
+    }
+
+    function reloadTotalRequetes() {
+        $.ajax({
+            url : '../Backend/reloadTotalRequetes.php',
+            type : 'GET',
+            success : function (result) {
+                console.log(result);
+                $('#totalRequetes').text(result);
+            },
+            error : function (e) {
+                console.log ('error '+ e.error);
+            }
         });
     }
 

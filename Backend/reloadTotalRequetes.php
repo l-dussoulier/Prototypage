@@ -10,10 +10,9 @@ try {
     $bdd = new PDO("mysql:host=$servername;dbname=prototype", $username, $password);
     $bdd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-    $result = $bdd->prepare("SELECT count(Id) from Capteur");
-    $result->execute();
-    $Temp = ($result->fetch(PDO::FETCH_OBJ));
-    echo $Temp->Valeur;
+    $result = $bdd->query("SELECT count(Id) as nbRequetes from Capteur");
+    $donnes = $result->fetch();
+    echo $donnes['nbRequetes'];
 
 
 
