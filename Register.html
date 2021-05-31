@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="fr">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="./Styles/style.css">
+    <title>Inscription !</title>
+</head>
+<body>
+<div class="wrapper fadeInDown">
+    <div id="formContent">
+        <br>
+        <br>
+        <br>
+        <div class="fadeIn first">
+            <img src="./Assets/obj1.png" id="icon" alt="User Icon" />
+        </div>
+
+        <!-- Login Form -->
+        <form>
+            <input type="text" id="login" class="fadeIn second" name="login" placeholder="Username">
+            <input type="password" id="password" class="password fadeIn third " name="password" placeholder="Mot de passe">
+            <input type="password" id="password2" class="fadeIn third password" name="password" placeholder="Confirmer votre mot de passe">
+            <input type="button" class="fadeIn fourth" id="BtnRegister" value="Inscription">
+        </form>
+
+    </div>
+</div>
+
+<script>
+
+    $('#BtnRegister').click(function (e){
+        console.log("username= "+$('#login').val());
+        console.log("password= "+$('#password').val());
+        if ($('#password').val() == $('#password2').val()){
+            params = "user="+$('#login').val()+"&password="+$('#password').val();
+            $.ajax({
+                url : './Backend/register.php?'+params,
+                type : 'GET',
+                success : function (result) {
+                    if (result != "0"){
+                        console.log("bien joué");
+                        window.location.href = './index.html';
+                    }
+
+                },
+                error : function () {
+                    console.log ('error');
+                }
+
+            });
+        }else {
+            alert("Les mots de passes de différents");
+        }
+
+    });
+</script>
+
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+</html>
