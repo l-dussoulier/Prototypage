@@ -39,13 +39,23 @@
 <script>
 
 $('#BtnLogin').click(function (e){
+    console.log("username= "+$('#login').val());
+    console.log("password= "+$('#password').val());
     param = "user="+$('#login').val()+"&password="+$('#password').val();
     $.ajax({
 
-        url : './Backend/login.php?'+param,
+        url : './Backend/fonctions.php',
         type : 'GET',
+        data:{
+            fonction:'login()',
+            params: {
+                user: $('#login').val(),
+                pass: $('#password').val()
+            }
+        },
         success : function (result) {
             if (result != "0"){
+                console.log("bien joué");
                 sessionStorage.setItem('User', result);
                 window.location.href = './dashboard/index.html';
             }
