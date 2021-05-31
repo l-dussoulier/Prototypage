@@ -1,9 +1,9 @@
 <?php
 $username = "root";
-$password = "";
+$password = "root";
 
 try{
-    $bdd = new PDO('mysql:host=localhost;dbname=prototypage',$username,$password);
+    $bdd = new PDO('mysql:host=localhost;dbname=prototype',$username,$password);
 }
 catch (PDOException $e){
     die('Error: '.$e->getMessage());

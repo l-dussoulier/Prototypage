@@ -176,6 +176,8 @@
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
                         <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
                     </div>
+                    <button type="button" id="testMQTT">NIQUE ZEBI</button>
+                    <button type="button" id="returnData">Reload data</button>
 
                     <!-- Content Row -->
                     <div class="row">
@@ -515,23 +517,73 @@
         });
 
 
+
+///////// PARTIE AJAX //////////
+
+
+//        $.ajax({
+        //             url : '../Backend/Publish.php',
+        //     type : 'GET',
+            //     success : function (result) {
+            //         console.log(result);
+        //     },
+        //     error : function (e) {
+        //         console.log ('error '+ e.error);
+        //     }
+
+        //   });
+
+        SubscribeTemperature();
+
+        var intervalId = window.setInterval(function(){
+            console.log('coucou ma boucle');
+            reloadTemperature();
+        }, 10000);
+
+
+        $('#returnData').on('click',function (e){
+            clearInterval(intervalId);
+
+
+        });
+
+          });
+
+
+
+    function SubscribeTemperature() {
+        console.log('sub');
         $.ajax({
-            url : '../Backend/fonctions.php',
+            url : '../Backend/Subscribe.php',
             type : 'GET',
-            data:{
-                fonction:'subscribe()',
-                params: param,
-            },
             success : function (result) {
                 console.log(result);
             },
             error : function (e) {
                 console.log ('error '+ e.error);
             }
-
         });
+    }
 
-    });
+
+
+    function reloadTemperature() {
+        $.ajax({
+            url : '../Backend/reloadTemperature.php',
+           type : 'GET',
+           success : function (result) {
+              console.log(result);
+              $('#IdTemperature').text(result);
+          },
+          error : function (e) {
+              console.log ('error '+ e.error);
+          }
+        });
+    }
+
+
+
+
 
 
 
