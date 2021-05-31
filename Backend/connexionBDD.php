@@ -1,8 +1,10 @@
 <?php
-$servername = "localhost";
 $username = "root";
-$password = "root";
+$password = "";
 
-$bdd = new PDO("mysql:host=$servername;dbname=prototype", $username, $password);
-// set the PDO error mode to exception
-$bdd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+try{
+    $bdd = new PDO('mysql:host=localhost;dbname=prototypage',$username,$password);
+}
+catch (PDOException $e){
+    die('Error: '.$e->getMessage());
+}

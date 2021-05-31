@@ -516,8 +516,12 @@
 
 
         $.ajax({
-            url : '../Backend/Subscribe.php',
+            url : '../Backend/fonctions.php',
             type : 'GET',
+            data:{
+                fonction:'subscribe()',
+                params: param,
+            },
             success : function (result) {
                 console.log(result);
             },
