@@ -44,15 +44,8 @@ $('#BtnLogin').click(function (e){
     param = "user="+$('#login').val()+"&password="+$('#password').val();
     $.ajax({
 
-        url : './Backend/fonctions.php',
+        url : './Backend/login.php?'+param,
         type : 'GET',
-        data:{
-            fonction:'login()',
-            params: {
-                user: $('#login').val(),
-                pass: $('#password').val()
-            }
-        },
         success : function (result) {
             if (result != "0"){
                 console.log("bien joué");

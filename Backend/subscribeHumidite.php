@@ -1,5 +1,7 @@
 <?php
 
+use PhpMqtt\Client\MqttClient;
+
 require __DIR__ . '/../vendor/autoload.php';
 
 //BDD
@@ -14,18 +16,15 @@ try {
     $bdd = new PDO("mysql:host=$servername;dbname=prototype", $username, $password);
     // set the PDO error mode to exception
     $bdd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
     $result = $bdd->prepare("INSERT INTO Capteur (Id,typeC,Valeur,dateCreation) VALUES (null,:typeC,:valeur,:dateC)");
-
 
 
     $mqtt = new MqttClient($server, $port);
     $mqtt->connect();
-    $mqtt->subscribe('php-mqtt/client/Temperature', function ($topic, $message) use ($result) {
-        //echo sprintf("Received message on topic [%s]: %s\n", $topic, $message);
+    $mqtt->subscribe('php-mqtt/client/Humidite', function ($topic, $message) use ($result) {
         echo $topic,' ',$message;
         $result->execute([
-            "typeC" => 'Temperature',
+            "typeC" => 'Humidite',
             "valeur" => $message,
             "dateC" => date('Y-m-d H:i:s')
         ]);

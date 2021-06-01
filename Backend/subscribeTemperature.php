@@ -1,5 +1,7 @@
 <?php
 
+use PhpMqtt\Client\MqttClient;
+
 require __DIR__ . '/../vendor/autoload.php';
 
 //BDD
@@ -20,10 +22,10 @@ try {
 
     $mqtt = new MqttClient($server, $port);
     $mqtt->connect();
-    $mqtt->subscribe('php-mqtt/client/Humidite', function ($topic, $message) use ($result) {
+    $mqtt->subscribe('php-mqtt/client/Temperature', function ($topic, $message) use ($result) {
         echo $topic,' ',$message;
         $result->execute([
-            "typeC" => 'Humidite',
+            "typeC" => 'Temperature',
             "valeur" => $message,
             "dateC" => date('Y-m-d H:i:s')
         ]);
